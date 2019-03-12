@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Create new Node</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-select [(value)]="data.type">
+      <mat-option></mat-option>
+      <mat-option value="Intent">Intent</mat-option>
+      <mat-option value="Regex">Regex</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.data">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-button (click)="onCancle()">Cancle</button>
+</div>

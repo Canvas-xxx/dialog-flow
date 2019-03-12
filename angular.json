@@ -25,7 +25,11 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/leader-line/leader-line.min.js",
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/@kensingtontech/hamsterjs/hamster.js"
+            ]
           },
           "configurations": {
             "production": {

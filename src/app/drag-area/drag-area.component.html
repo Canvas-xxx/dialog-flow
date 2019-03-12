@@ -1,0 +1,23 @@
+<div class="container-area">
+  <div class="container-drag">
+    <div *ngFor="let item of nodesArray"
+      [attr.id]="item._id"
+      class="drag-item"
+      cdkDragBoundary=".container-drag"
+      (cdkDragMoved)="onDragMoved($event, item)"
+      cdkDrag>
+      <span>{{ item.name }}</span>
+      <button (click)="addPort(item)">add port</button>
+      <div class="port-contain">
+        <div *ngFor="let p of item.port" class="list-contain">
+          <input />
+          <button [attr.id]="p._id" (click)="addLine(item, p)">add line</button>
+        </div>
+      </div>
+      <mat-form-field>
+        <input matInput placeholder="Error State" [(ngModel)]="item.error">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<app-leader-line></app-leader-line>
