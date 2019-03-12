@@ -42,14 +42,36 @@
     z-index: 1;
 }
 
-.drag-item .port-contain {
+.drag-item .question-contain {
     display: flex;
+    align-items: flex-start;
     width: 100%;
-    flex-direction: column;
-    align-items: center;
 }
 
-.port-contain .list-contain {
+.question-contain .question {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    padding: 5px 0;
+}
+
+.question-contain .port-contain {
+    display: flex;
+    flex-direction: column;
+    padding: 5px 0;
+    min-width: 10px;
+    min-height: 5px;
+}
+
+.port-contain .add-port {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: skyblue;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+.port-contain .add-port:last-child {
+    margin-bottom: 0;
 }

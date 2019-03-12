@@ -6,12 +6,19 @@
       cdkDragBoundary=".container-drag"
       (cdkDragMoved)="onDragMoved($event, item)"
       cdkDrag>
-      <span>{{ item.name }}</span>
-      <button (click)="addPort(item)">add port</button>
-      <div class="port-contain">
-        <div *ngFor="let p of item.port" class="list-contain">
-          <input />
-          <button [attr.id]="p._id" (click)="addLine(item, p)">add line</button>
+      <input [(ngModel)]="item.name" />
+      <div>
+        <button (click)="addQuestion(item)">add question</button>
+        <button (click)="addPort(item)">add port</button>
+      </div>
+      <div class="question-contain">
+        <div class="question">
+          <div *ngFor="let question of item.qustionList; let i = index; trackBy: indexTracker;">
+            <input [(ngModel)]="item.qustionList[i]" />
+          </div>
+        </div>
+        <div class="port-contain">
+          <div *ngFor="let p of item.port" [attr.id]="p._id" (click)="addLine(item, p)" class="add-port"></div>
         </div>
       </div>
       <mat-form-field>

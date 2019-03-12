@@ -20,6 +20,7 @@ export class DragAreaComponent implements OnInit {
     this.nodesArray.push({
       _id: this.randomString(),
       name: 'Element1',
+      qustionList: [''],
       port: [],
       line: [],
       error: ''
@@ -30,6 +31,10 @@ export class DragAreaComponent implements OnInit {
     item.line.forEach(l => {
       this.line.updatePosition(l)
     })
+  }
+
+  addQuestion = (node: NodeModel): void => {
+    node.qustionList.push('')
   }
 
   addPort = (node: NodeModel): void => {
@@ -57,6 +62,7 @@ export class DragAreaComponent implements OnInit {
             that.nodesArray.push({
               _id: _id,
               name: 'Element' + (this.nodesArray.length + 1),
+              qustionList: [],
               port: [],
               line: [],
               error: ''
@@ -65,7 +71,7 @@ export class DragAreaComponent implements OnInit {
               let newNode = document.getElementById(_id)
               that.createNewNode(newNode, currentNode)
               setTimeout(() => {
-                let line = that.line.createLine(currentNode, newNode, result.data)
+                let line = that.line.createLine(document.getElementById(port._id), newNode, result.data)
                 port.to = _id
                 node.line.push(line)
                 that.nodesArray[that.nodesArray.length - 1].line.push(line)
@@ -97,10 +103,15 @@ export class DragAreaComponent implements OnInit {
   randomString = (): string => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }
+
+  indexTracker(index: number, value: any) {
+    return index;
+  }
 }
 export interface NodeModel {
   _id: string,
   name: string,
+  qustionList: Array<string>,
   port: Array<PortModel>,
   line: Array<string>,
   error: string

@@ -17,7 +17,7 @@ export class LeaderLineComponent implements OnInit {
   }
 
   createLine = (start: Element, end: Element, label: string): string => {
-    let line = new LeaderLine(LeaderLine.pointAnchor({ element: start, x: 230 }), end, { middleLabel: label })
+    let line = new LeaderLine(LeaderLine.pointAnchor({ element: start, x: 20 }), end, { middleLabel: label })
     line.setOptions({ startSocket: 'right', endSocket: 'left' })
     line.startSocketGravity = 100
     this.lineArray.push({
