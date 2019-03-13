@@ -3,6 +3,7 @@ import { CdkDragMove } from '@angular/cdk/drag-drop'
 import { LeaderLineComponent } from './components/leader-line/leader-line.component'
 import { MatDialog } from '@angular/material'
 import { DialogComponent } from './components/dialog/dialog.component'
+import { ShowModelComponent } from './components/show-model/show-model.component'
 
 @Component({
   selector: 'app-drag-area',
@@ -29,7 +30,7 @@ export class DragAreaComponent implements OnInit {
 
   onDragMoved = ($e: CdkDragMove, item: NodeModel): void => {
     item.line.forEach(l => {
-      this.line.updatePosition(l)
+      this.line.updatePosition(l.lineId)
     })
   }
 
@@ -73,12 +74,14 @@ export class DragAreaComponent implements OnInit {
               setTimeout(() => {
                 let line = that.line.createLine(document.getElementById(port._id), newNode, result.data)
                 port.to = _id
-                node.line.push(line)
-                that.nodesArray[that.nodesArray.length - 1].line.push(line)
+                node.line.push({ portId: port._id, lineId: line})
+                that.nodesArray[that.nodesArray.length - 1].line.push({ portId: port._id, lineId: line})
               }, 300)
             })
           default:
-            that.line.updateLabel(node.line[node.port.findIndex(p => p._id === port._id)], result.data)
+            const lineId = node.line.find( l => port._id === l.portId)
+            if(lineId)
+              that.line.updateLabel(lineId.lineId, result.data)
             port.data = { type: result.type, data: result.data }
         }
       }
@@ -100,6 +103,16 @@ export class DragAreaComponent implements OnInit {
     }
   }
 
+  saveModel = (): void => {
+    const dialogRef = this.dialog.open(ShowModelComponent, {
+      width: '700px',
+      data: this.nodesArray
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+    })
+  }
+
   randomString = (): string => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }
@@ -113,8 +126,12 @@ export interface NodeModel {
   name: string,
   qustionList: Array<string>,
   port: Array<PortModel>,
-  line: Array<string>,
+  line: Array<LineModel>,
   error: string
+}
+export interface LineModel {
+  portId: string,
+  lineId: string
 }
 export interface PortModel {
   _id: string,

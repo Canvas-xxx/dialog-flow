@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Dialog Model</h1>
+<div mat-dialog-content>
+    <h3>Node List</h3>
+    <table mat-table [dataSource]="dataSourceNodes" class="mat-elevation-z8" style="width: 100%; margin: 25px 0;">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="questionlist">
+          <th mat-header-cell *matHeaderCellDef> Question List </th>
+          <td mat-cell *matCellDef="let element"> {{element.questionlist}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="errorintent">
+          <th mat-header-cell *matHeaderCellDef> Error Intent </th>
+          <td mat-cell *matCellDef="let element"> {{element.errorintent}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedNodesColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedNodesColumns;"></tr>
+      </table>
+
+      <h3>Edge List</h3>
+      <table mat-table [dataSource]="dataSourceEdges" class="mat-elevation-z8" style="width: 100%; margin: 25px 0;">
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="data">
+          <th mat-header-cell *matHeaderCellDef> Data </th>
+          <td mat-cell *matCellDef="let element"> {{element.data}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="fromnode">
+          <th mat-header-cell *matHeaderCellDef> From Node </th>
+          <td mat-cell *matCellDef="let element"> {{element.fromnode}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="tonode">
+          <th mat-header-cell *matHeaderCellDef> To Node </th>
+          <td mat-cell *matCellDef="let element"> {{element.tonode}} </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedEdgesColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedEdgesColumns;"></tr>
+      </table>
+</div>

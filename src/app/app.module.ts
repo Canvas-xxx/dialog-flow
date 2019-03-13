@@ -7,6 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog'
 import { Ng2PanZoomModule } from 'ng2-panzoom'
 import { MatInputModule, MatButtonModule } from '@angular/material'
 import { MatSelectModule } from '@angular/material/select'
+import { MatTableModule } from '@angular/material/table'
 
 import { AppRoutingModule } from './app-routing.module'
 
@@ -15,7 +16,8 @@ import { GojsComponent } from './gojs/gojs.component';
 import { DialogComponent } from './gojs/component/dialog/dialog.component';
 import { DragAreaComponent } from './drag-area/drag-area.component';
 import { LeaderLineComponent } from './drag-area/components/leader-line/leader-line.component'
-import { DialogComponent as DComponent } from './drag-area/components/dialog/dialog.component'
+import { DialogComponent as DComponent } from './drag-area/components/dialog/dialog.component';
+import { ShowModelComponent } from './drag-area/components/show-model/show-model.component'
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { DialogComponent as DComponent } from './drag-area/components/dialog/dia
     DialogComponent,
     DComponent,
     DragAreaComponent,
-    LeaderLineComponent
+    LeaderLineComponent,
+    ShowModelComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +40,10 @@ import { DialogComponent as DComponent } from './drag-area/components/dialog/dia
     MatDialogModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTableModule
   ],
-  entryComponents: [ DialogComponent, DComponent ],
+  entryComponents: [ DialogComponent, DComponent, ShowModelComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })
