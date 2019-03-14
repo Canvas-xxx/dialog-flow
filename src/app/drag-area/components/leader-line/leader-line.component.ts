@@ -16,10 +16,15 @@ export class LeaderLineComponent implements OnInit {
   ngOnInit() {
   }
 
-  createLine = (start: Element, end: Element, label: string): string => {
-    let line = new LeaderLine(LeaderLine.pointAnchor({ element: start, x: 20 }), end, { middleLabel: label })
-    line.setOptions({ startSocket: 'right', endSocket: 'left' })
-    line.startSocketGravity = 100
+  createLine = (start: Element, end: Element, label: string, old: boolean): string => {
+    let line: any
+    switch(old) {
+      case true:
+        line = this.oldBox(start, end, label)
+        break
+      default:
+        line = this.newBox(start, end, label)
+    }
     this.lineArray.push({
       _id: this.randomString(),
       line: line
@@ -29,6 +34,20 @@ export class LeaderLineComponent implements OnInit {
       document.querySelector('.line-container').appendChild(l)
     })
     return this.lineArray[this.lineArray.length - 1]._id
+  }
+
+  newBox = (start: Element, end: Element, label: string): any => {
+    let line = new LeaderLine(LeaderLine.pointAnchor({ element: start, x: 20 }), end, { middleLabel: label })
+    line.setOptions({ startSocket: 'right', endSocket: 'left' })
+    line.startSocketGravity = 100
+    return line
+  }
+  oldBox = (start: Element, end: Element, label: string): any => {
+    let line = new LeaderLine(LeaderLine.pointAnchor({ element: start, x: 20 }), end, { middleLabel: label })
+    line.setOptions({ startSocket: 'right', endSocket: 'bottom' })
+    line.startSocketGravity = [400, 150]
+    line.endSocketGravity = [-100, 150]
+    return line
   }
 
   updatePosition = (_id: string): void => {

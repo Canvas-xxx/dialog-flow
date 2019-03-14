@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CdkDragMove } from '@angular/cdk/drag-drop'
 import { LeaderLineComponent } from './components/leader-line/leader-line.component'
 import { MatDialog } from '@angular/material'
-import { DialogComponent } from './components/dialog/dialog.component'
+import { DialogComponent, PortDialogModel } from './components/dialog/dialog.component'
 import { ShowModelComponent } from './components/show-model/show-model.component'
 
 @Component({
@@ -14,18 +14,12 @@ import { ShowModelComponent } from './components/show-model/show-model.component
 export class DragAreaComponent implements OnInit {
 
   nodesArray: Array<NodeModel> = []
+  nodesElement: Array<NodeElementModel> = []
 
   constructor( private line: LeaderLineComponent, public dialog: MatDialog ) { }
 
   ngOnInit() {
-    this.nodesArray.push({
-      _id: this.randomString(),
-      name: 'Element1',
-      qustionList: [''],
-      port: [],
-      line: [],
-      error: ''
-    })
+    this.createNewElement(this.randomString(), 'Element1')
   }
 
   onDragMoved = ($e: CdkDragMove, item: NodeModel): void => {
@@ -36,6 +30,21 @@ export class DragAreaComponent implements OnInit {
 
   addQuestion = (node: NodeModel): void => {
     node.qustionList.push('')
+  }
+
+  createNewElement = (_id: string, name: string): void => {
+    this.nodesElement.push({
+      _id: _id,
+      name: name
+    })
+    this.nodesArray.push({
+      _id: _id,
+      name: name,
+      qustionList: [''],
+      port: [],
+      line: [],
+      error: ''
+    })
   }
 
   addPort = (node: NodeModel): void => {
@@ -52,37 +61,31 @@ export class DragAreaComponent implements OnInit {
     const that = this
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: { type: port.data.type, data: port.data.data }
+      data: { from: port.from, to: port.to, data: port.data, nodeElement: this.nodesElement }, 
     })
     let currentNode = document.getElementById(node._id)
-    dialogRef.afterClosed().subscribe((result: PortDataModel) => {
+    dialogRef.afterClosed().subscribe((result: PortDialogModel) => {
       if(result) {
         switch(null) {
-          case port.to:
+          case result.to:
             const _id: string = that.randomString()
-            that.nodesArray.push({
-              _id: _id,
-              name: 'Element' + (this.nodesArray.length + 1),
-              qustionList: [],
-              port: [],
-              line: [],
-              error: ''
-            })
+            that.createNewElement(_id, 'Element' + (that.nodesArray.length + 1))
             setTimeout(() => {
               let newNode = document.getElementById(_id)
               that.createNewNode(newNode, currentNode)
               setTimeout(() => {
-                let line = that.line.createLine(document.getElementById(port._id), newNode, result.data)
-                port.to = _id
-                node.line.push({ portId: port._id, lineId: line})
-                that.nodesArray[that.nodesArray.length - 1].line.push({ portId: port._id, lineId: line})
+                that.createNewLine(node, port, port._id, _id, result, false)
               }, 300)
             })
+            break
           default:
             const lineId = node.line.find( l => port._id === l.portId)
-            if(lineId)
-              that.line.updateLabel(lineId.lineId, result.data)
-            port.data = { type: result.type, data: result.data }
+            if(lineId) {
+              that.line.updateLabel(lineId.lineId, result.data.data)
+              port.data = { type: result.data.type, data: result.data.data }
+            }
+            if(!lineId)
+              that.createNewLine(node, port, port._id, result.to, result, true)
         }
       }
     })
@@ -103,10 +106,18 @@ export class DragAreaComponent implements OnInit {
     }
   }
 
+  createNewLine = (node: NodeModel, port: PortModel, startId: string, endId: string, result: PortDialogModel, old: boolean): void => {
+    let line = this.line.createLine(document.getElementById(startId), document.getElementById(endId), result.data.data, old)
+    port.to = endId
+    port.data = { type: result.data.type, data: result.data.data }
+    node.line.push({ portId: port._id, lineId: line})
+    this.nodesArray[this.nodesArray.findIndex(n => n._id === endId)].line.push({ portId: port._id, lineId: line})
+  }
+
   saveModel = (): void => {
     const dialogRef = this.dialog.open(ShowModelComponent, {
       width: '700px',
-      data: this.nodesArray
+      data: this.nodesArray,
     })
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
@@ -120,6 +131,10 @@ export class DragAreaComponent implements OnInit {
   indexTracker(index: number, value: any) {
     return index;
   }
+}
+export interface NodeElementModel {
+  _id: string,
+  name: string
 }
 export interface NodeModel {
   _id: string,

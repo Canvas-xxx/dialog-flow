@@ -1,8 +1,13 @@
 <h1 mat-dialog-title>Create new Node</h1>
 <div mat-dialog-content>
   <mat-form-field>
-    <mat-select [(value)]="data.type">
+    <mat-select placeholder="Select Node" [(value)]="data.to">
       <mat-option></mat-option>
+      <mat-option *ngFor="let node of nodeElement" [value]="node._id">{{ node.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Select Rule" [(value)]="data.data.type">
       <mat-option value="Keyword">Keyword</mat-option>
       <mat-option value="Intent">Intent</mat-option>
       <mat-option value="Regex">Regex</mat-option>
@@ -10,7 +15,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="data.data">
+    <input matInput [(ngModel)]="data.data.data">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>
