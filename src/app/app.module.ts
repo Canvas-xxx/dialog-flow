@@ -8,6 +8,7 @@ import { Ng2PanZoomModule } from 'ng2-panzoom'
 import { MatInputModule, MatButtonModule } from '@angular/material'
 import { MatSelectModule } from '@angular/material/select'
 import { MatTableModule } from '@angular/material/table'
+import { MatIconModule } from '@angular/material/icon'
 
 import { AppRoutingModule } from './app-routing.module'
 
@@ -41,7 +42,8 @@ import { ShowModelComponent } from './drag-area/components/show-model/show-model
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatTableModule
+    MatTableModule,
+    MatIconModule
   ],
   entryComponents: [ DialogComponent, DComponent, ShowModelComponent ],
   providers: [],

@@ -58,22 +58,8 @@
 .question-contain .port-contain {
     display: flex;
     flex-direction: column;
-    padding: 5px 0;
-    min-width: 10px;
+    min-width: 25px;
     min-height: 5px;
-}
-
-.port-contain .add-port {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: skyblue;
-    cursor: pointer;
-    margin-bottom: 5px;
-}
-
-.port-contain .add-port:last-child {
-    margin-bottom: 0;
 }
 
 .center-bttn {
@@ -88,3 +74,38 @@
 .center-bttn button:last-child {
     margin-right: 0;
 }
+
+
+
+/* Md Button Icon */
+.mat-icon-button.small-md-icon-button {
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+}
+.mat-icon-button.small-md-icon-button .mat-icon {
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+}
+
+.mat-icon-button.medium-md-icon-button {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+.mat-icon-button.medium-md-icon-button .mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+}
+
+.mat-skyblue {
+    color: skyblue;
+}
+.mat-skyblue svg {
+    fill: skyblue;
+}
+/*****************/

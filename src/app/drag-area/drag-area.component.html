@@ -6,10 +6,19 @@
       cdkDragBoundary=".container-drag"
       (cdkDragMoved)="onDragMoved($event, item)"
       cdkDrag>
-      <input [(ngModel)]="item.name" />
       <div>
-        <button (click)="addQuestion(item)">add question</button>
-        <button (click)="addPort(item)">add port</button>
+        <input [(ngModel)]="item.name" />
+        <button mat-icon-button color="warn" class="small-md-icon-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+      <div>
+        <button mat-icon-button color="primary" (click)="addQuestion(item)" class="medium-md-icon-button">
+          <mat-icon>question_answer</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="addPort(item)" class="medium-md-icon-button">
+          <mat-icon>add_circle</mat-icon>
+        </button>
       </div>
       <div class="question-contain">
         <div class="question">
@@ -18,7 +27,9 @@
           </div>
         </div>
         <div class="port-contain">
-          <div *ngFor="let p of item.port" [attr.id]="p._id" (click)="addLine(item, p)" class="add-port"></div>
+          <button mat-icon-button *ngFor="let p of item.port" [attr.id]="p._id" (click)="addLine(item, p)" class="small-md-icon-button mat-skyblue">
+            <mat-icon>arrow_forward_ios</mat-icon>
+          </button>
         </div>
       </div>
       <mat-form-field>
