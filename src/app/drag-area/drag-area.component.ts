@@ -52,6 +52,20 @@ export class DragAreaComponent implements OnInit {
       const rootIndex = this.nodesArray.findIndex(i => i._id === node._id)
       node.line.forEach( l => {
         this.line.deleteLine(l.lineId)
+        this.nodesArray.forEach(n => {
+          n.port.some((p, index, ports) => {
+            if(p._id === l.portId && n._id !== node._id) {
+              ports.splice(index, 1)
+              return true
+            }
+          })
+          n.line.some((parentLine, index, parentLines) => {
+            if(parentLine.portId === l.portId && n._id !== node._id) {
+              parentLines.splice(index, 1)
+              return true
+            }
+          })
+        })
       })
       node.port.forEach( p => {
         const childIndex = this.nodesArray.findIndex(i => i._id === p.to)
@@ -160,6 +174,8 @@ export class DragAreaComponent implements OnInit {
     })
     const childIndex = this.nodesArray.findIndex(n => n._id === port.to)
     this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== _id)
+    port.data = { type: '', data: '' }
+    port.to = undefined
   }
 
   saveModel = (): void => {
