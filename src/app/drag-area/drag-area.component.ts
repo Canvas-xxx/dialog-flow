@@ -47,6 +47,21 @@ export class DragAreaComponent implements OnInit {
     })
   }
 
+  deleteElement = (node: NodeModel): void => {
+    if(this.nodesArray.length > 1) {
+      const rootIndex = this.nodesArray.findIndex(i => i._id === node._id)
+      node.line.forEach( l => {
+        this.line.deleteLine(l.lineId)
+      })
+      node.port.forEach( p => {
+        const childIndex = this.nodesArray.findIndex(i => i._id === p.to)
+        this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== p._id)
+      })
+      this.nodesArray.splice(rootIndex, 1)
+      this.nodesElement.splice(rootIndex, 1)
+    }
+  }
+
   addPort = (node: NodeModel): void => {
     let _id: string = this.randomString()
     node.port.push({
@@ -95,13 +110,13 @@ export class DragAreaComponent implements OnInit {
     let top = (currentNode.style.top.length > 0 ? parseInt(currentNode.style.top.replace('px', '')) : 0)
     let left = (currentNode.style.left.length > 0 ? parseInt(currentNode.style.left.replace('px', '')) : 0)
     if(!currentNode.style.transform) {
-      newNode.style.left = (currentNode.offsetLeft + left + 300) + 'px'
-      newNode.style.top = currentNode.offsetTop + top + 'px'
+      newNode.style.left = (currentNode.offsetLeft + left + 150) + 'px'
+      newNode.style.top = (currentNode.offsetTop + top) + 'px'
     }
     if(currentNode.style.transform) {
       let tranform = currentNode.style.transform
       let position = tranform.replace('translate3d(', '').replace(')', '').replace(/ /g, '').replace(/px/g, '').split(',')
-      newNode.style.left = (parseInt(position[0]) + 300 + left) + 'px'
+      newNode.style.left = (parseInt(position[0]) + 150 + left) + 'px'
       newNode.style.top = (parseInt(position[1]) + top) + 'px'
     }
   }

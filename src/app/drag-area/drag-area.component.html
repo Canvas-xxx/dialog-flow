@@ -8,7 +8,7 @@
       cdkDrag>
       <div>
         <input [(ngModel)]="item.name" />
-        <button mat-icon-button color="warn" class="small-md-icon-button">
+        <button mat-icon-button color="warn" class="small-md-icon-button" (click)="deleteElement(item)">
           <mat-icon>delete</mat-icon>
         </button>
       </div>

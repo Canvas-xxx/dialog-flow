@@ -67,6 +67,23 @@ export class LeaderLineComponent implements OnInit {
     })
   }
 
+  deleteLine = (_id: string): void => {
+    let lineList = Array.from(document.querySelectorAll('.leader-line'))
+    lineList.forEach(l => {
+      document.querySelector('body').appendChild(l)
+    })
+    this.lineArray.forEach((line, index, lines) => {
+      if(line._id === _id) {
+        line.line.remove()
+        lines.splice(index, 1)
+      }
+    })
+    lineList = Array.from(document.querySelectorAll('.leader-line'))
+    lineList.forEach(l => {
+      document.querySelector('.line-container').appendChild(l)
+    })
+  }
+
   randomString = (): string => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }
