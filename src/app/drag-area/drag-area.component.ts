@@ -83,26 +83,43 @@ export class DragAreaComponent implements OnInit {
       if(result) {
         switch(null) {
           case result.to:
-            const _id: string = that.randomString()
-            that.createNewElement(_id, 'Element' + (that.nodesArray.length + 1))
-            setTimeout(() => {
-              let newNode = document.getElementById(_id)
-              that.createNewNode(newNode, currentNode)
-              setTimeout(() => {
-                that.createNewLine(node, port, port._id, _id, result, false)
-              }, 300)
-            })
+            that.createNewElementConnectLine(node, port, result, currentNode)
             break
           default:
             const lineId = node.line.find( l => port._id === l.portId)
             if(lineId) {
-              that.line.updateLabel(lineId.lineId, result.data.data)
-              port.data = { type: result.data.type, data: result.data.data }
+              switch(true) {
+                case port.to === result.to:
+                  that.line.updateLabel(lineId.lineId, result.data.data)
+                  port.data = { type: result.data.type, data: result.data.data }
+                  break
+                default:
+                  that.line.deleteLine(lineId.lineId)
+                  if(result.to) {
+                    port.to = result.to
+                    that.createNewLine(node, port, port._id, result.to, result, true)
+                    return
+                  }
+                  that.createNewElementConnectLine(node, port, result, currentNode)
+              }
             }
             if(!lineId)
               that.createNewLine(node, port, port._id, result.to, result, true)
         }
       }
+    })
+  }
+
+  createNewElementConnectLine = (node: NodeModel, port: PortModel, result: PortDialogModel, currentNode: HTMLElement): void => {
+    const that = this
+    const _id: string = that.randomString()
+    this.createNewElement(_id, 'Element' + (that.nodesArray.length + 1))
+    setTimeout(() => {
+      let newNode = document.getElementById(_id)
+      that.createNewNode(newNode, currentNode)
+      setTimeout(() => {
+        that.createNewLine(node, port, port._id, _id, result, false)
+      }, 300)
     })
   }
 
