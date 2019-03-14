@@ -20,5 +20,6 @@
 </div>
 <div mat-dialog-actions>
   <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>OK</button>
+  <button mat-raised-button color="warn" [mat-dialog-close]="data._id">Delete</button>
   <button mat-raised-button (click)="onCancle()">Cancle</button>
 </div>

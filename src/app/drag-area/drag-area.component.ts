@@ -75,12 +75,16 @@ export class DragAreaComponent implements OnInit {
   addLine = (node: NodeModel, port: PortModel): void => {
     const that = this
     const dialogRef = this.dialog.open(DialogComponent, {
-      width: '250px',
-      data: { from: port.from, to: port.to, data: port.data, nodeElement: this.nodesElement }, 
+      width: '300px',
+      data: { _id: port._id, from: port.from, to: port.to, data: port.data, nodeElement: this.nodesElement }, 
     })
     let currentNode = document.getElementById(node._id)
     dialogRef.afterClosed().subscribe((result: PortDialogModel) => {
       if(result) {
+        if(typeof(result) === 'string') {
+          that.deleteLine(node, port, result)
+          return
+        }
         switch(null) {
           case result.to:
             that.createNewElementConnectLine(node, port, result, currentNode)
@@ -144,6 +148,18 @@ export class DragAreaComponent implements OnInit {
     port.data = { type: result.data.type, data: result.data.data }
     node.line.push({ portId: port._id, lineId: line})
     this.nodesArray[this.nodesArray.findIndex(n => n._id === endId)].line.push({ portId: port._id, lineId: line})
+  }
+
+  deleteLine = (node: NodeModel, port: PortModel, _id: string): void => {
+    node.line.some((line, index, lines) => {
+      if(line.portId === _id) {
+        this.line.deleteLine(line.lineId)
+        lines.splice(index, 1)
+        return true
+      }
+    })
+    const childIndex = this.nodesArray.findIndex(n => n._id === port.to)
+    this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== _id)
   }
 
   saveModel = (): void => {

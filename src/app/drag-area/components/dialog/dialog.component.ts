@@ -22,6 +22,7 @@ export class DialogComponent {
 
 }
 export interface PortDialogModel {
+  _id: string,
   from: string,
   to: string,
   data: PortDataModel,
