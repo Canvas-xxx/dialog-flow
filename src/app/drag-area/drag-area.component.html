@@ -1,13 +1,13 @@
 <div class="container-area">
   <div class="container-drag">
-    <div *ngFor="let item of nodesArray"
+    <div *ngFor="let item of nodesArray; let i = index"
       [attr.id]="item._id"
       class="drag-item"
       cdkDragBoundary=".container-drag"
       (cdkDragMoved)="onDragMoved($event, item)"
       cdkDrag>
       <div>
-        <input [(ngModel)]="item.name" />
+        <input [(ngModel)]="item.name" [(ngModel)]="nodesElement[i].name" />
         <button mat-icon-button color="warn" class="small-md-icon-button" (click)="deleteElement(item)">
           <mat-icon>delete</mat-icon>
         </button>
