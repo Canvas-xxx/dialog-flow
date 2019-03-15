@@ -69,7 +69,8 @@ export class DragAreaComponent implements OnInit {
       })
       node.port.forEach( p => {
         const childIndex = this.nodesArray.findIndex(i => i._id === p.to)
-        this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== p._id)
+        if(childIndex !== -1)
+          this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== p._id)
       })
       this.nodesArray.splice(rootIndex, 1)
       this.nodesElement.splice(rootIndex, 1)
@@ -145,13 +146,13 @@ export class DragAreaComponent implements OnInit {
     let top = (currentNode.style.top.length > 0 ? parseInt(currentNode.style.top.replace('px', '')) : 0)
     let left = (currentNode.style.left.length > 0 ? parseInt(currentNode.style.left.replace('px', '')) : 0)
     if(!currentNode.style.transform) {
-      newNode.style.left = (currentNode.offsetLeft + left + 150) + 'px'
+      newNode.style.left = (currentNode.offsetLeft + left + 250) + 'px'
       newNode.style.top = (currentNode.offsetTop + top) + 'px'
     }
     if(currentNode.style.transform) {
       let tranform = currentNode.style.transform
       let position = tranform.replace('translate3d(', '').replace(')', '').replace(/ /g, '').replace(/px/g, '').split(',')
-      newNode.style.left = (parseInt(position[0]) + 150 + left) + 'px'
+      newNode.style.left = (parseInt(position[0]) + 250 + left) + 'px'
       newNode.style.top = (parseInt(position[1]) + top) + 'px'
     }
   }
@@ -173,9 +174,11 @@ export class DragAreaComponent implements OnInit {
       }
     })
     const childIndex = this.nodesArray.findIndex(n => n._id === port.to)
-    this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== _id)
-    port.data = { type: '', data: '' }
-    port.to = undefined
+    if(childIndex !== -1) {
+      this.nodesArray[childIndex].line = this.nodesArray[childIndex].line.filter( cl => cl.portId !== _id)
+      port.data = { type: '', data: '' }
+      port.to = undefined
+    }
   }
 
   saveModel = (): void => {
