@@ -191,6 +191,14 @@ export class DragAreaComponent implements OnInit {
     })
   }
 
+  inputTricker = ($e: KeyboardEvent, list: Array<string>, index: number): void => {
+    if($e.keyCode === 13 && (index + 1) === list.length)
+      list.push('')
+    if($e.keyCode === 8 && list[index].length === 0 && list.length > 1) {
+      list.splice(index, 1)
+    }
+  }
+
   randomString = (): string => {
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
   }

@@ -23,7 +23,7 @@
       <div class="question-contain">
         <div class="question">
           <div *ngFor="let question of item.qustionList; let i = index; trackBy: indexTracker;">
-            <input [(ngModel)]="item.qustionList[i]" />
+            <input [(ngModel)]="item.qustionList[i]" (keyup)="inputTricker($event, item.qustionList, i)" />
           </div>
         </div>
         <div class="port-contain">
