@@ -17,6 +17,8 @@ export class LeaderLineComponent implements OnInit {
   }
 
   createLine = (start: Element, end: Element, label: string, old: boolean): string => {
+    console.log('DEBUG::::Start: ', start)
+    console.log('DEBUG::::End: ', end)
     let line: any
     switch(old) {
       case true:
