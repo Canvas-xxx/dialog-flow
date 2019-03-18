@@ -271,10 +271,6 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@kensingtontech/hamsterjs@~1.1.6":
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/@kensingtontech/hamsterjs/-/hamsterjs-1.1.6.tgz#fb798a82976dd9b0fe45cdf79827fe5748657886"
-
 "@ngtools/webpack@6.1.5":
   version "6.1.5"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-6.1.5.tgz#134639686eb4519885ed27665babdf80ce098263"
@@ -3342,10 +3338,6 @@ jasminewd2@^2.1.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/jasminewd2/-/jasminewd2-2.2.0.tgz#e37cf0b17f199cce23bea71b2039395246b4ec4e"
 
-jquery@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
-
 js-base64@^2.1.8:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.5.1.tgz#1efa39ef2c5f7980bb1784ade4a8af2de3291121"
@@ -3998,21 +3990,6 @@ negotiator@0.6.1:
 neo-async@^2.5.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.0.tgz#b9d15e4d71c6762908654b5183ed38b753340835"
-
-"ng2-mousewheel@^1.0.0 || ^0.9.0":
-  version "0.9.5"
-  resolved "https://registry.yarnpkg.com/ng2-mousewheel/-/ng2-mousewheel-0.9.5.tgz#46e507e5f6314308a09cfc28128e652e75fb495c"
-  dependencies:
-    "@kensingtontech/hamsterjs" "~1.1.6"
-    tslib "^1.9.0"
-
-ng2-panzoom@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/ng2-panzoom/-/ng2-panzoom-1.0.2.tgz#ee97d2b0ffca2c8125b99bb0a98cfa2482b0467e"
-  dependencies:
-    jquery "^3.3.1"
-    ng2-mousewheel "^1.0.0 || ^0.9.0"
-    tslib "^1.9.0"
 
 nice-try@^1.0.4:
   version "1.0.5"

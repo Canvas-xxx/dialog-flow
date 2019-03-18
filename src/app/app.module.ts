@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { MatDialogModule } from '@angular/material/dialog'
-import { Ng2PanZoomModule } from 'ng2-panzoom'
 import { MatInputModule, MatButtonModule } from '@angular/material'
 import { MatSelectModule } from '@angular/material/select'
 import { MatTableModule } from '@angular/material/table'
@@ -34,10 +34,10 @@ import { ShowModelComponent } from './drag-area/components/show-model/show-model
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     DragDropModule,
-    Ng2PanZoomModule,
     MatDialogModule,
     MatInputModule,
     MatButtonModule,

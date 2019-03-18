@@ -138,7 +138,7 @@ export class DragAreaComponent implements OnInit {
       that.createNewNode(newNode, currentNode)
       setTimeout(() => {
         that.createNewLine(node, port, port._id, _id, result, false)
-      }, 300)
+      }, 500)
     })
   }
 
